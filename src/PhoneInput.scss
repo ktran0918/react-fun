@@ -1,0 +1,20 @@
+p, input {
+  font-size: 20px;
+}
+
+#phone-form {
+  display: block;
+  width: 40%;
+  margin: 100px auto;
+}
+
+#phone-input {
+  margin: auto 10px;
+  border: none;
+  border-bottom: 1px solid gray;
+}
+
+#phone-input:focus {
+  outline: none;
+  border-width: 2px;
+}
