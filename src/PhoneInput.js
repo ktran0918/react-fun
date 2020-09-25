@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PhoneInput.scss';
 
 
@@ -10,7 +10,6 @@ function parseNumber(phone) {
 
   if (pos0 && pos0 != '(') phone = '(' + phone;
   if (pos4 && pos4 != ')') phone = phone.slice(0, 4) + ') ' + phone.slice(4);
-  // if (pos5 && pos5 != ' ') phone = phone.slice(0, 5) + ' ' + phone.slice(5);
   if (pos9 && pos9 != '-') phone = phone.slice(0, 9) + '-' + phone.slice(9);
 
   return phone;
@@ -52,7 +51,12 @@ function PhoneInput() {
       />
     </form>
 
-    {errMsg && <p>{errMsg}</p>}
+    <p
+      id='error-msg'
+      class={errMsg == 'Success' ? 'success-highlight' : 'err-highlight'}
+    >
+      {errMsg}
+    </p>
   </>;
 }
 

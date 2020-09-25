@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Clocks.scss';
 
 
-const clocks = [
+let clocks = [
   {
     location: 'Los Angeles, CA',
     offset: -7
@@ -12,14 +12,14 @@ const clocks = [
     offset: -4
   },
   {
-    location: 'Ho Chi Minh City, Vietnam',
+    location: 'Ho Chi Minh City',
     offset: +7
   }
 ];
 
 function printOffset(offset) {
   let direction = '';
-  if (offset > 0) direction = '+';
+  if (offset >= 0) direction = '+';
 
   return direction + offset.toString();
 }
@@ -28,7 +28,7 @@ function convertTime(date, offset) {
   let hour = date.getUTCHours() + offset;
   let period = 'AM';
 
-  if (hour > 24) {
+  if (hour >= 24) {
     hour = hour - 24;
   }
 
@@ -44,8 +44,11 @@ function convertTime(date, offset) {
   return `${hour}:${minute}:${second} ${period}`;
 }
 
-function Clock() {
+function Clocks() {
   const [date, setDate] = useState(new Date());
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [locationInput, setLocationInput] = useState('');
+  const [offsetInput, setOffsetInput] = useState('');
 
   useEffect(() => {
     const intervalID = setInterval(
@@ -60,19 +63,68 @@ function Clock() {
 
   let currentTimeOffset = -(date.getTimezoneOffset() / 60);
 
-  return <div id='clocks'>
-    <div className='clock'>
-      <p><strong>Your timezone (GMT{printOffset(currentTimeOffset)}):</strong></p>
-      <p>{convertTime(date, currentTimeOffset)}</p>
+  return <>
+    <div id='clocks' class={showAddModal ? 'dimmed' : 'normal'}>
+      <div className='clock'>
+        <p><strong>Your timezone (GMT{printOffset(currentTimeOffset)}):</strong></p>
+        <p>{convertTime(date, currentTimeOffset)}</p>
+      </div>
+
+      {clocks.map(clock =>
+        <div className='clock'>
+          <p><strong>{clock.location} (GMT{printOffset(clock.offset)}):</strong></p>
+          <p>{convertTime(date, clock.offset)}</p>
+        </div>
+      )}
+
+      { /* add clock button*/}
+      <button
+        className='clock'
+        id='add-button'
+        onClick={() => setShowAddModal(true)}
+      >+</button>
     </div>
 
-    {clocks.map(clock =>
-      <div className='clock'>
-        <p><strong>{clock.location} (GMT{printOffset(clock.offset)}):</strong></p>
-        <p>{convertTime(date, clock.offset)}</p>
-      </div>
-    )}
-  </div>;
+    {/* add clock modal */}
+    {showAddModal && <div id='add-modal'>
+      <form onSubmit={(e) => e.preventDefault()}>
+        <label class='add-input' htmlFor="">Location name:</label>
+        <input
+          type="text"
+          onChange={(e) => setLocationInput(e.target.value)}
+        />
+        <label class='add-input' htmlFor="">GMT offset:</label>
+        <input
+          type="number"
+          min='-12' max='12'
+          onChange={(e) => setOffsetInput(e.target.value)}
+        />
+
+        <button
+          type="submit"
+          onClick={() => {
+            locationInput && offsetInput && clocks.push(
+              {
+                location: locationInput,
+                offset: Number(offsetInput)
+              }
+            );
+            setShowAddModal(false);
+          }}
+        >
+          Submit
+        </button>
+        <button
+          type="reset"
+          onClick={() => setShowAddModal(false)}
+        >
+          Cancel
+        </button>
+      </form>
+    </div>}
+
+
+  </>;
 }
 
-export default Clock;
+export default Clocks;

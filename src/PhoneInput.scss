@@ -18,3 +18,15 @@ p, input {
   outline: none;
   border-width: 2px;
 }
+
+#error-msg {
+  text-align: center;
+}
+
+.err-highlight {
+  color: red;
+}
+
+.success-highlight {
+  color: green;
+}

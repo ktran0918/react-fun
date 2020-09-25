@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.scss';
-import Clock from './Clocks';
+import Clocks from './Clocks';
 import PhoneInput from './PhoneInput';
-import { Router, Switch, Route, NavLink, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, NavLink, BrowserRouter, Redirect } from 'react-router-dom';
 
 function NavBar() {
   return <nav id='main-nav'>
@@ -28,10 +28,10 @@ function App() {
 
         <Switch>
           <Route exact path="/">
-            <Clock />
+            <Redirect to='/clocks' />
           </Route>
           <Route path="/clocks">
-            <Clock />
+            <Clocks />
           </Route>
           <Route path="/phone-input">
             <PhoneInput />
