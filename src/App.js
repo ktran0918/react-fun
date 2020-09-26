@@ -24,8 +24,6 @@ function NavBar() {
 function App() {
   return (
     <div className="App">
-      {/* <Clock />
-      <PhoneInput /> */}
 
       <BrowserRouter>
         <NavBar />
@@ -45,6 +43,7 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
+
     </div>
   );
 }
