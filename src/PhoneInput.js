@@ -53,7 +53,7 @@ function PhoneInput() {
 
     <p
       id='error-msg'
-      class={errMsg == 'Success' ? 'success-highlight' : 'err-highlight'}
+      className={errMsg == 'Success' ? 'success-highlight' : 'err-highlight'}
     >
       {errMsg}
     </p>
