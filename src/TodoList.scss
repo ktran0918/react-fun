@@ -1,3 +1,19 @@
-.listItem {
-  display: block
+.list-item {
+  display: block;
+  margin: 5px auto;
+}
+
+.delete-button {
+  margin-left: 5px;
+  padding: 1px 3px;
+}
+
+#add-item-form input {
+  border: none;
+  border-bottom: 1px solid gray;
+}
+
+#add-item-form input:focus {
+  outline: none;
+  border-bottom: 1px solid black;
 }
