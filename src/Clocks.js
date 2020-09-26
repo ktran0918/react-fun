@@ -28,6 +28,10 @@ function convertTime(date, offset) {
   let hour = date.getUTCHours() + offset;
   let period = 'AM';
 
+  if (hour < 0) {
+    hour = hour + 24;
+  }
+
   if (hour >= 24) {
     hour = hour - 24;
   }
@@ -64,7 +68,7 @@ function Clocks() {
   let currentTimeOffset = -(date.getTimezoneOffset() / 60);
 
   return <>
-    <div id='clocks' class={showAddModal ? 'dimmed' : 'normal'}>
+    <div id='clocks' className={showAddModal ? 'dimmed' : 'normal'}>
       <div className='clock'>
         <p><strong>Your timezone (GMT{printOffset(currentTimeOffset)}):</strong></p>
         <p>{convertTime(date, currentTimeOffset)}</p>
@@ -88,12 +92,12 @@ function Clocks() {
     {/* add clock modal */}
     {showAddModal && <div id='add-modal'>
       <form onSubmit={(e) => e.preventDefault()}>
-        <label class='add-input' htmlFor="">Location name:</label>
+        <label className='add-input' htmlFor="">Location name:</label>
         <input
           type="text"
           onChange={(e) => setLocationInput(e.target.value)}
         />
-        <label class='add-input' htmlFor="">GMT offset:</label>
+        <label className='add-input' htmlFor="">GMT offset:</label>
         <input
           type="number"
           min='-12' max='12'
