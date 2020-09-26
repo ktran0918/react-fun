@@ -3,6 +3,7 @@ import './App.scss';
 import Clocks from './Clocks';
 import PhoneInput from './PhoneInput';
 import { Switch, Route, NavLink, BrowserRouter, Redirect } from 'react-router-dom';
+import TodoList from './TodoList';
 
 function NavBar() {
   return <nav id='main-nav'>
@@ -12,6 +13,9 @@ function NavBar() {
       </li>
       <li>
         <NavLink to='/phone-input'>Phone Input</NavLink>
+      </li>
+      <li>
+        <NavLink to='/todo-list'>Todo List</NavLink>
       </li>
     </ul>
   </nav>;
@@ -35,6 +39,9 @@ function App() {
           </Route>
           <Route path="/phone-input">
             <PhoneInput />
+          </Route>
+          <Route path="/todo-list">
+            <TodoList />
           </Route>
         </Switch>
       </BrowserRouter>
